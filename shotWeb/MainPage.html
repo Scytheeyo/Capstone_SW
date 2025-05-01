@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MainPage</title>
+        <style>
+            #nav-bar {
+                background-color: rgb(248, 252, 255);
+                border-bottom: 1px solid rgb(219, 224, 255);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin: 0;
+                padding: 0;
+            }
+            #nav-menu {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            #nav-menu li {
+                float : left;
+            }
+            #nav-menu li a {
+                display: block;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                color: rgb(65, 144, 255);
+                cursor: pointer;
+                margin: 0 20px;
+                font-size: large;
+                font-weight: bold;
+            }
+
+            #nav-menu li a:hover {
+                background-color: aliceblue;
+                color: rgb(3, 78, 184);
+                font-weight: bold;
+            }
+
+            #hamburger-menu {
+                display: none;
+                cursor: pointer;
+                padding: 10px;
+            }
+
+            #hamburger-menu div {
+                width: 25px;
+                height: 3px;
+                background-color: rgb(65, 144, 255); 
+                margin: 6px 0;
+            }
+
+            @media screen and (max-width: 600px) {
+                #nav-menu {
+                    display: none;
+                    width: 100%;
+                    background-color: rgb(115, 115, 115);
+                }
+                #nav-menu li {
+                    float: none;
+                    width: 100%;
+                }
+                #nav-menu li a {
+                    text-align: left;
+                }
+                #hamburger-menu {
+                    display: block;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <header>
+            <nav>
+                <div id="hamburger-menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <ul id="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            <div style="text-align: center; margin-top: 40px;">
+                <input type="text" id="url-input" placeholder="편집할 URL을 입력하세요" style="width: 60%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px;">
+                <button onclick="submitUrl()" style="padding: 10px 20px; margin-left: 10px; background-color: rgb(65, 144, 255); color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer;">
+                    편집
+                </button>
+            </div>
+        </header>
+
+        <script>
+            document.getElementById('hamburger-menu').addEventListener('click', function() {
+                var navMenu = document.getElementById('nav-menu');
+                if (navMenu.style.display === 'block') {
+                    navMenu.style.display = 'none';
+                } else {
+                    navMenu.style.display = 'block';
+                }
+            });
+            document.getElementById('hamburger-menu').addEventListener('mouseenter', function() {
+                var navMenu = document.getElementById('nav-menu');
+                navMenu.style.display = 'block';
+            });
+            document.getElementById('hamburger-menu').addEventListener('mouseleave', function() {
+                var navMenu = document.getElementById('nav-menu');
+                navMenu.style.display = 'none';
+            });
+
+            function submitUrl() {
+                const url = document.getElementById('url-input').value.trim();
+
+                if (!url) {
+                    alert("URL을 입력해주세요.");
+                    return;
+                }
+
+                fetch('/api/submit-url', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url })
+                })
+                .then(res => {
+                    if (res.ok) {
+                        alert("URL이 성공적으로 전송되었습니다.");
+                    }   else {
+                        throw new Error("URL 전송 실패");
+                    }
+                })
+                .catch(err => alert(err.message));
+            }
+        </script>    
+
+    </body>
+</html>
+

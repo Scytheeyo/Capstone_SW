@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <style>
+    /* 스타일 그대로 유지 */
+    table {
+        width: 280px;
+        height: 550px;
+        margin: auto;
+    }
+    .email, .text, select, .btn {
+        border-radius: 15px;
+        outline: none;
+        font-size: 15px;
+        padding-left: 10px;
+    }
+    .email {
+        width: 127px;
+        height: 32px;
+        border: 0;
+        background-color: rgb(233,233,233);
+    }
+    .text {
+        width: 250px;
+        height: 32px;
+        border: 0;
+        background-color: rgb(233,233,233);
+    }
+    select {
+        width: 100px;
+        height: 32px;
+        border: 1px solid lightgray;
+    }
+    .btn {
+        width: 262px;
+        height: 32px;
+        border: 0;
+        background-color: rgb(255, 140, 0);
+    }
+    .btn:active {
+        background-color: rgb(255, 165, 0);
+    }
+  </style>
+</head>
+<body>
+  <form onsubmit="register(event)">
+    <table>
+      <tr><td><h2>회원가입</h2></td></tr>
+      <tr><td>아이디</td></tr>
+      <tr><td><input type="text" class="text" /></td></tr>
+      <tr><td>비밀번호</td></tr>
+      <tr><td><input type="password" class="text" /></td></tr>
+      <tr><td>비밀번호 확인</td></tr>
+      <tr><td><input type="password" class="text" /></td></tr>
+      <tr><td>이름</td></tr>
+      <tr><td><input type="text" class="text" /></td></tr>
+      <tr><td>이메일</td></tr>
+      <tr>
+        <td>
+          <input type="text" class="email" /> @ 
+          <select>
+            <option>naver.com</option>
+            <option>gmail.com</option>
+            <option>daum.net</option>
+            <option>nate.com</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input type="submit" value="가입하기" class="btn" />
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <script>
+    function register(event) {
+      event.preventDefault();
+
+      const username = document.querySelectorAll('.text')[0].value;
+      const password = document.querySelectorAll('.text')[1].value;
+      const passwordConfirm = document.querySelectorAll('.text')[2].value;
+      const name = document.querySelectorAll('.text')[3].value;
+      const email1 = document.querySelector('.email').value;
+      const email2 = document.querySelector('select').value;
+      const email = email1 + '@' + email2;
+
+      if (password !== passwordConfirm) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+      }
+
+      fetch('/api/join', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          name: name,
+          email: email
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          alert("가입 성공!");
+          window.location.href = "login.html";
+        } else {
+          return res.text().then(text => { throw new Error(text); });
+        }
+      })
+      .catch(err => alert("에러: " + err.message));
+    }
+  </script>
+</body>
+</html>
