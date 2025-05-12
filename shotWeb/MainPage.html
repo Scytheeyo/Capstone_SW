@@ -5,9 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>MainPage</title>
         <style>
+            /* 네비게이션 바 -> 향후 css로 분리*/
             #nav-bar {
-                background-color: rgb(248, 252, 255);
-                border-bottom: 1px solid rgb(219, 224, 255);
+                background-color: black;/*rgb(248, 252, 255)*/;
+                border-bottom: 1px solid black;/*rgb(219, 224, 255)*/;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 margin: 0;
                 padding: 0;
@@ -27,17 +28,19 @@
                 padding: 14px 16px;
                 text-decoration: none;
                 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                color: rgb(65, 144, 255);
+                color: #444;
                 cursor: pointer;
                 margin: 0 20px;
                 font-size: large;
                 font-weight: bold;
+                transition: .3s ease;
             }
 
             #nav-menu li a:hover {
-                background-color: aliceblue;
-                color: rgb(3, 78, 184);
+                background-color: #444;
+                color: white;/*rgb(3, 78, 184);*/
                 font-weight: bold;
+                transition: .3s ease;
             }
 
             #hamburger-menu {
@@ -49,7 +52,7 @@
             #hamburger-menu div {
                 width: 25px;
                 height: 3px;
-                background-color: rgb(65, 144, 255); 
+                background-color: black;/*rgb(65, 144, 255);*/ 
                 margin: 6px 0;
             }
 
@@ -57,18 +60,159 @@
                 #nav-menu {
                     display: none;
                     width: 100%;
-                    background-color: rgb(115, 115, 115);
+                    background-color: #444;/*rgb(115, 115, 115);*/
                 }
                 #nav-menu li {
                     float: none;
                     width: 100%;
                 }
                 #nav-menu li a {
+                    color: white;
                     text-align: left;
                 }
                 #hamburger-menu {
                     display: block;
                 }
+            }
+            .header_img{
+                background: url(./mainImg/TitleImg.png);
+                background-position: center;
+                background-size: cover;
+                height: 700px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .header_img .title{
+                text-align: center;
+            }
+            /*타이틀 로고 이미지 필요시 사용
+            .header_img .title .img{
+                width: 100px;
+            }*/
+            .header_img .title h1{
+                font-size: 40px;
+                color: #ffffff;
+                letter-spacing: 0.2em;
+                margin-bottom: 0;
+
+            }
+            .header_img .title p{
+                margin-top: 0;
+                margin-bottom: 30px;
+                color: #ffffff;
+            }
+            /*인트로 설명*/
+            .intro{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 1200px;
+                margin: auto;
+            }
+            .intro .card{
+                flex: 1;
+                text-align: center;
+                margin: 150px 40px;
+            }
+            .intro .card img{
+                width: 175px;
+                height: 175px;
+            }
+            .intro .card h1{
+                letter-spacing: 0.2em;
+            }
+            .intro card p{
+                font-size: 10px;
+            }
+
+
+            /*url 편집 바 향후 css로 빼겠습니다*/
+            .url_input .input_bar{
+                text-align: center;
+                margin-top: 40px;
+            }
+            .url_input .input_bar .input_bar_button{
+                /*padding: 10px 20px;
+                margin-left: 10px;
+                background-color: black;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-size: 16px;
+                cursor: pointer;*/
+
+                background: black;
+                color:white;
+                border:2px solid white;
+                border-radius: 10px;
+                padding: 10px 20px;
+                margin-left: 10px;
+                font-size: 16px;
+                transition: .5s ease;
+            }
+            .url_input .input_bar .input_bar_button:hover{
+                 transition: .5s ease;
+                border: 2px solid black;
+                background: transparent;
+                color: black;
+            }
+            /*community list style -> 향후 다른 css 파일로 빼겠습니다*/
+            .community_list{
+                padding-top: 70px;
+                padding-bottom: 70px;
+            }
+            .community_list .container{
+                max-width: 1100px;
+                margin: auto;
+            }
+            .community_list .container .title ul{
+                padding-left: 0;
+                list-style: none;
+            }
+            .community_list .container .title ul li{
+                display: inline;
+                margin-right: 30px;
+            }
+            .community_list .container .title ul li a{
+                text-decoration: none;
+                color:#444;
+            }
+            .community_list .container .item_list{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .community_list .container .item_list .card{
+                border: 1px solid #eee;
+                border-radius: 5px;
+                height: 350px;
+                width: 250px;
+                padding: 5px;
+                margin-bottom: 10px;
+            }
+            .community_list .container .item_list .card img{
+                height: 200px;
+                width: 250px;
+            }
+            .community_list .container .item_list .card .text p{
+                font-size: 14px;
+                opacity: .8;
+            }
+            .community_list .container .item_list .card .text button{
+                background: black;
+                color:white;
+                border:2px solid white;
+                border-radius: 5px;
+                padding: 5px 10px;
+                font-size: 10px;
+                transition: .5s ease;
+            }
+            .community_list .container .item_list .card .text button:hover{
+                transition: .5s ease;
+                border: 2px solid black;
+                background: transparent;
+                color: black;
             }
         </style>
     </head>
@@ -88,14 +232,81 @@
                     <li><a href="#faq">FAQ</a></li>
                 </ul>
             </nav>
+
+            <!-- 헤더 이미지와 로고-->
+             <section class="header_img">
+                <div class="title">
+                    <!--<img src="./mainImg/TItleLogo_ex.png" alt="">-->
+                    <h1>CLIP SHOT</h1>
+                    <p>클립샷, 하이라이트 순간을 편집합니다</p>
+                </div>
+             </section>
+
+             <section class="intro">
+                <div class="card">
+                    <img src="./mainImg/step1.png" alt="">
+                    <h1>URL 입력</h1>
+                    <p>유튜브의 url 주소를 입력하여 목표 영상을 가져옵니다.</p>
+                </div>
+                <div class="card">
+                    <img src="./mainImg/step2.png" alt="">
+                    <h1>영상 편집</h1>
+                    <p>대상 영상을 AI로 분석하여 하이라이트 순간의 편집점을 잡습니다.</p>
+                </div>
+                <div class="card">
+                    <img src="./mainImg/step3.png" alt="">
+                    <h1>경기 분석</h1>
+                    <p>대상 영상의 경기 내용을 간단하게 정리하여 설명합니다.</p>
+                </div>
+             </section>
+
+            <!-- url 삽입 바 -->
+             <!-- 확인 차 남겨둠, 향후 주석 삭제함
             <div style="text-align: center; margin-top: 40px;">
                 <input type="text" id="url-input" placeholder="편집할 URL을 입력하세요" style="width: 60%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px;">
                 <button onclick="submitUrl()" style="padding: 10px 20px; margin-left: 10px; background-color: rgb(65, 144, 255); color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer;">
                     편집
                 </button>
             </div>
+            -->
+            <section class="url_input">
+                <div class="input_bar">
+                    <input type="text" id="url-input" placeholder="편집할 URL을 입력하세요" style="width: 60%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px;">
+                    <button class="input_bar_button" onclick="submitUrl()">
+                        편집
+                    </button>
+                </div>
+            </section>
+
         </header>
 
+        <!-- 커뮤니티 -->
+        <section class="community_list">
+            <div class="container">
+                <div class="title">
+                    <h1>COMMUNITY</h1>
+                    <ul>
+                        <li><a href="">글 목록</a></li>
+                        <li><a href="">글 목록2</a></li>
+                        <li><a href="">글 목록3</a></li>
+                        <li><a href="">글 목록4</a></li>
+                    </ul>
+                </div>
+                <div class="item_list">
+                <div class="card"> <!-- 커뮤니티 글 카드 -->
+                    <div class="img">
+                        <img src="./mainImg/example.jpg" alt="">
+                    </div>
+                    <div class="text">
+                        <h2>예시</h2>
+                        <p>예시 글</p>
+                        <button><i class="fas fa-check"></i>확인하기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
         <script>
             document.getElementById('hamburger-menu').addEventListener('click', function() {
                 var navMenu = document.getElementById('nav-menu');
@@ -113,7 +324,17 @@
                 var navMenu = document.getElementById('nav-menu');
                 navMenu.style.display = 'none';
             });
+            window.addEventListener('resize', function() {
+                const navMenu = document.getElementById('nav-menu');
+                const hamburger = document.getElementById('hamburger-menu');
 
+            // 창 크기가 600px 이상이면 nav-menu 항상 표시
+                if (window.innerWidth > 600) {
+                    navMenu.style.display = 'flex'; // 또는 'block' depending on layout
+                } else {
+                    navMenu.style.display = 'none'; // 작아지면 다시 숨기기
+                }
+            });
             function submitUrl() {
                 const url = document.getElementById('url-input').value.trim();
 
