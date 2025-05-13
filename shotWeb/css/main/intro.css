@@ -1,0 +1,22 @@
+.intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+.intro .card {
+    flex: 1;
+    text-align: center;
+    margin: 150px 40px;
+}
+.intro .card img {
+    width: 175px;
+    height: 175px;
+}
+.intro .card h1 {
+    letter-spacing: 0.2em;
+}
+.intro card p {
+    font-size: 10px;
+}
