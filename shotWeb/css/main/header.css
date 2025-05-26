@@ -1,8 +1,9 @@
             .header_img{
-                background: url(./img/TitleImg.png);
+                background: url(./img/TitleImg.png) no-repeat center center;
                 background-position: center;
-                background-size: cover;
-                height: 700px;
+                background-size: 100% auto; /*cover*/
+                height: auto /*700px*/;
+                aspect-ratio: 9 / 6;
                 display: flex;
                 align-items: center;
                 justify-content: center;

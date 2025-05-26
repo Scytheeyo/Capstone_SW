@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang= "ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Page</title>
+        <link href="mainImg/logo_round_favicon.png" rel="icon">
+        <link href="css/main/nav.css" rel="stylesheet">
+        <link href="css/mypage/table.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div id="hamburger-menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <ul id="nav-menu">
+                    <li><a href="MainPage.html">Home</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="MyPage.html">MyPage</a></li>
+                    <li><a href="join.html">SignUp</a></li>
+                </ul>
+            </nav>
+
+            
+        </header>
+        <!-- 게임 테이블 -->
+        <table id="gameTable">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>경기내용</th>
+                    <th>URL</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <br>
+        <!-- 편집 테이블 -->
+        <table id="editTable">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>편집점</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <!--<tr>
+                <td>1</td>
+                <td>예시 편집점 1:30:11</td>
+                <td>예시 내용 골 3회 슈팅 5회</td>
+            </tr>-->
+        </table>
+        <script>
+            document.getElementById('hamburger-menu').addEventListener('click', function() {
+                var navMenu = document.getElementById('nav-menu');
+                if (navMenu.style.display === 'block') {
+                    navMenu.style.display = 'none';
+                } else {
+                    navMenu.style.display = 'block';
+                }
+            });
+            document.getElementById('hamburger-menu').addEventListener('mouseenter', function() {
+                var navMenu = document.getElementById('nav-menu');
+                navMenu.style.display = 'block';
+            });
+            document.getElementById('hamburger-menu').addEventListener('mouseleave', function() {
+                var navMenu = document.getElementById('nav-menu');
+                navMenu.style.display = 'none';
+            });
+            window.addEventListener('resize', function() {
+                const navMenu = document.getElementById('nav-menu');
+                const hamburger = document.getElementById('hamburger-menu');
+
+            
+                if (window.innerWidth > 600) {
+                    navMenu.style.display = 'flex';
+                } else {
+                    navMenu.style.display = 'none';
+                }
+            });
+
+            /* 테이블 */
+            const gameData = [
+                { metaData: "골 3회 슈팅 5회", URL: " " },
+                { metaData: "골 1회 슈팅 2회", URL: " "},
+                { metaData: "슈팅 7회", URL: " " }
+            ];
+            const editData = [
+                { editPoint: "1:30:11", },
+                { editPoint: "0:45:02", },
+                { editPoint: "2:10:00" }
+            ];
+            const gameTableBody = document.querySelector('#gameTable tbody');
+            const editTableBody = document.querySelector('#editTable tbody');
+            
+            function populateGameTable(data) {
+                gameTableBody.innerHTML = '';
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.metaData}</td>
+                        <td>${item.URL}</td>
+                    `;
+                    gameTableBody.appendChild(row);
+                });
+            }
+            populateGameTable(gameData);
+
+            function populateEditTable(data) {
+                editTableBody.innerHTML = '';
+
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.editPoint}</td>
+                    `;
+                    editTableBody.appendChild(row);
+                });
+            }
+            populateEditTable(editData);
+
+            /*fetch('/api/gameData', {
+
+            });*/
+
+        </script>
+    </body>
+</html>
