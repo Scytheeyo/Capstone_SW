@@ -12,24 +12,23 @@
         <link href="css/main/community.css" rel="stylesheet">
         <link href="css/main/sidebar.css" rel="stylesheet">
     </head>
-    <body>
+<body>
 
-        <header>
-            <nav>
-                <div id="hamburger-menu">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <ul id="nav-menu">
-                    <li><a href="MainPage.html">Home</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="MyPage.html">MyPage</a></li>
-                    <li><a href="join.html">SignUp</a></li>
-                </ul>
-            </nav>
-
-            <aside class="side_bar">
+    <header>
+        <nav>
+            <div id="hamburger-menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+<aside class="side_bar">
                 <section class = "side_bar_icon">
                     <section class="side_bar_hamburger_menu">
                         <div></div>
@@ -44,34 +43,31 @@
                     <li><a href="join.html">SignUp</a></li>
                 </ul>
             </aside>
+        <!-- 헤더 이미지와 로고 -->
+        <section class="header_img">
+            <div class="title">
+                <h1>CLIP SHOT</h1>
+                <p>클립샷, 하이라이트 순간을 편집합니다</p>
+            </div>
+        </section>
 
-            <!-- 헤더 이미지와 로고-->
-             <section class="header_img">
-                <div class="title">
-                    <!--<img src="./mainImg/TItleLogo_ex.png" alt="">-->
-                    <h1>CLIP SHOT</h1>
-                    <p>클립샷, 하이라이트 순간을 편집합니다</p>
-                </div>
-             </section>
-
-             <section class="intro">
-                <div class="card">
-                    <img src="./mainImg/step1.png" alt="">
-                    <h1>URL 입력</h1>
-                    <p>유튜브의 url 주소를 입력하여 목표 영상을 가져옵니다.</p>
-                </div>
-                <div class="card">
-                    <img src="./mainImg/step2.png" alt="">
-                    <h1>영상 편집</h1>
-                    <p>대상 영상을 AI로 분석하여 하이라이트 순간의 편집점을 잡습니다.</p>
-                </div>
-                <div class="card">
-                    <img src="./mainImg/step3.png" alt="">
-                    <h1>경기 분석</h1>
-                    <p>대상 영상의 경기 내용을 간단하게 정리하여 설명합니다.</p>
-                </div>
-             </section>
-
+        <section class="intro">
+            <div class="card">
+                <img src="./mainImg/step1.png" alt="">
+                <h1>URL 입력</h1>
+                <p>유튜브의 url 주소를 입력하여 목표 영상을 가져옵니다.</p>
+            </div>
+            <div class="card">
+                <img src="./mainImg/step2.png" alt="">
+                <h1>영상 편집</h1>
+                <p>대상 영상을 AI로 분석하여 하이라이트 순간의 편집점을 잡습니다.</p>
+            </div>
+            <div class="card">
+                <img src="./mainImg/step3.png" alt="">
+                <h1>경기 분석</h1>
+                <p>대상 영상의 경기 내용을 간단하게 정리하여 설명합니다.</p>
+            </div>
+        </section>
             <!-- url 삽입 바 -->
              <!-- 확인 차 남겨둠, 향후 주석 삭제함
             <div style="text-align: center; margin-top: 40px;">
@@ -81,18 +77,19 @@
                 </button>
             </div>
             -->
-            <section class="url_input">
-                <div class="input_bar">
-                    <input type="text" id="url-input" placeholder="편집할 URL을 입력하세요" style="width: 60%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px;">
-                    <button class="input_bar_button" onclick="submitUrl()">
-                        편집
-                    </button>
-                </div>
-            </section>
+        <section class="url_input">
+            <div class="input_bar">
+                <input type="text" id="url-input" placeholder="편집할 URL을 입력하세요" style="width: 60%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px;">
+                <button class="input_bar_button" onclick="submitUrl()">
+                    편집
+                </button>
+            </div>
+            <!-- 분석 결과 텍스트 표시 영역 -->
+            <div id="result-box" style="text-align:center; margin-top:20px; font-weight:bold; font-size:18px;"></div>
+        </section>
+    </header>
 
-        </header>
-
-        <!-- 커뮤니티 -->
+     <!-- 커뮤니티 -->
         <section class="community_list">
             <div class="container">
                 <div class="title">
@@ -118,59 +115,68 @@
             </div>
         </section>
 
-        
-        <script>
-            document.getElementById('hamburger-menu').addEventListener('click', function() {
-                var navMenu = document.getElementById('nav-menu');
-                if (navMenu.style.display === 'block') {
-                    navMenu.style.display = 'none';
-                } else {
-                    navMenu.style.display = 'block';
-                }
-            });
-            document.getElementById('hamburger-menu').addEventListener('mouseenter', function() {
-                var navMenu = document.getElementById('nav-menu');
-                navMenu.style.display = 'block';
-            });
-            document.getElementById('hamburger-menu').addEventListener('mouseleave', function() {
-                var navMenu = document.getElementById('nav-menu');
-                navMenu.style.display = 'none';
-            });
-            window.addEventListener('resize', function() {
-                const navMenu = document.getElementById('nav-menu');
-                const hamburger = document.getElementById('hamburger-menu');
+    <script>
 
-            // 창 크기가 600px 이상이면 nav-menu 항상 표시
-                if (window.innerWidth > 600) {
-                    navMenu.style.display = 'flex'; // 또는 'block' depending on layout
-                } else {
-                    navMenu.style.display = 'none'; // 작아지면 다시 숨기기
-                }
-            });
-            function submitUrl() {
-                const url = document.getElementById('url-input').value.trim();
+    document.getElementById('hamburger-menu').addEventListener('click', function() {
+        var navMenu = document.getElementById('nav-menu');
+        if (navMenu.style.display === 'block') {
+            navMenu.style.display = 'none';
+        } else {
+            navMenu.style.display = 'block';
+        }
+    });
 
-                if (!url) {
-                    alert("URL을 입력해주세요.");
-                    return;
-                }
+    document.getElementById('hamburger-menu').addEventListener('mouseenter', function() {
+        var navMenu = document.getElementById('nav-menu');
+        navMenu.style.display = 'block';
+    });
 
-                fetch('/api/submit-url', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url: url })
-                })
-                .then(res => {
-                    if (res.ok) {
-                        alert("URL이 성공적으로 전송되었습니다.");
-                    }   else {
-                        throw new Error("URL 전송 실패");
-                    }
-                })
-                .catch(err => alert(err.message));
+    document.getElementById('hamburger-menu').addEventListener('mouseleave', function() {
+        var navMenu = document.getElementById('nav-menu');
+        navMenu.style.display = 'none';
+    });
+
+    window.addEventListener('resize', function() {
+        const navMenu = document.getElementById('nav-menu');
+        const hamburger = document.getElementById('hamburger-menu');
+
+        // 창 크기가 600px 이상이면 메뉴 항상 표시
+        if (window.innerWidth > 600) {
+            navMenu.style.display = 'flex'; // 또는 'block'으로 바꿔도 됨
+        } else {
+            navMenu.style.display = 'none'; // 작아지면 다시 숨기기
+        }
+    });
+
+    // ✅ 수정 및 추가. URL을 백엔드에 전송하는 submitUrl 함수 정의
+    function submitUrl() {
+        const url = document.getElementById('url-input').value.trim();
+
+        // 입력값 없을 시 경고창 띄우기
+        if (!url) {
+            alert("URL을 입력해주세요.");
+            return;
+        }
+
+        // 추가. Flask 백엔드에 URL을 POST 방식으로 전송
+        fetch('/api/submit-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: url })  // 백엔드가 요구하는 JSON 형식이라 추가시킴킴
+        })
+        .then(res => {
+            // 수정. res.ok 여부만 확인하고 후처리 없었어서 추가함
+            if (res.ok) {
+                alert("URL이 성공적으로 전송되었습니다.");
+            } else {
+                throw new Error("URL 전송 실패");
             }
-        </script>    
+        })
+        .catch(err => alert(err.message));  // 오류 알림
+    }
+</script>
 
-    </body>
+
+
+</body>
 </html>
-
