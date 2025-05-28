@@ -3,94 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="css/main/nav.css" rel="stylesheet">
   <title>Join</title>
-  <link href="mainImg/logo_round_favicon.png" rel="icon">
-  <style>
-    table {
-        width: 280px;
-        height: 550px;
-        margin: auto;
-    }
-    .email, .text, select, .btn {
-        border-radius: 15px;
-        outline: none;
-        font-size: 15px;
-        padding-left: 10px;
-    }
-    .email {
-        width: 127px;
-        height: 32px;
-        border: 0;
-        background-color: rgb(233,233,233);
-    }
-    .text {
-        width: 250px;
-        height: 32px;
-        border: 0;
-        background-color: rgb(233,233,233);
-    }
-    select {
-        width: 100px;
-        height: 32px;
-        border: 1px solid lightgray;
-    }
-    .btn {
-        width: 262px;
-        height: 32px;
-        border: 0;
-        background-color: rgb(255, 140, 0);
-    }
-    .btn:active {
-        background-color: rgb(255, 165, 0);
-    }
-  </style>
+  <link href="css/LoginAndJoin/join.css" rel="stylesheet">
+  <link href="css/main/sidebar.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-      <nav>
-          <div id="hamburger-menu">
-              <div></div>
-              <div></div>
-              <div></div>
-          </div>
-          <ul id="nav-menu">
-              <li><a href="MainPage.html">Home</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="MyPage.html">MyPage</a></li>
-              <li><a href="join.html">SignUp</a></li>
-          </ul>
-      </nav>
-    </header>
+  <header>
+    <aside class="side_bar">
+        <section class = "side_bar_icon">
+            <section class="side_bar_hamburger_menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </section>
+        </section>
+        <ul>
+            <li><a href="MainPage.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="MyPage.html">MyPage</a></li>
+            <li><a href="join.html">SignUp</a></li>
+            <li><a href="http://localhost:8080/h2-console/">DB</a></li>
+        </ul>
+    </aside>
+  </header>
   <form onsubmit="register(event)">
-    <table>
-      <tr><td><h2>회원가입</h2></td></tr>
-      <tr><td>아이디</td></tr>
-      <tr><td><input type="text" class="text" /></td></tr>
-      <tr><td>비밀번호</td></tr>
-      <tr><td><input type="password" class="text" /></td></tr>
-      <tr><td>비밀번호 확인</td></tr>
-      <tr><td><input type="password" class="text" /></td></tr>
-      <tr><td>이름</td></tr>
-      <tr><td><input type="text" class="text" /></td></tr>
-      <tr><td>이메일</td></tr>
-      <tr>
-        <td>
-          <input type="text" class="email" /> @ 
-          <select>
-            <option>naver.com</option>
-            <option>gmail.com</option>
-            <option>daum.net</option>
-            <option>nate.com</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <input type="submit" value="가입하기" class="btn" />
-        </td>
-      </tr>
-    </table>
+    <section class="join_background_img">
+      <section class="join_table">
+        <table>
+          <tr><td><h2>회원가입</h2></td></tr>
+          <tr><td>아이디</td></tr>
+          <tr><td><input type="text" class="text" /></td></tr>
+          <tr><td>비밀번호</td></tr>
+          <tr><td><input type="password" class="text" /></td></tr>
+          <tr><td>비밀번호 확인</td></tr>
+          <tr><td><input type="password" class="text" /></td></tr>
+          <tr><td>이름</td></tr>
+          <tr><td><input type="text" class="text" /></td></tr>
+          <tr><td>이메일</td></tr>
+          <tr>
+            <td>
+              <input type="text" class="email" /> @ 
+              <select>
+                <option>naver.com</option>
+                <option>gmail.com</option>
+                <option>daum.net</option>
+                <option>nate.com</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="submit" value="가입하기" class="btn" />
+            </td>
+          </tr>
+        </table>        
+      </section>
+    </section>
   </form>
 
   <script>

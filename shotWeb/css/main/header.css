@@ -1,29 +1,29 @@
-            .header_img{
-                background: url(./img/TitleImg.png) no-repeat center center;
-                background-position: center;
-                background-size: 100% auto; /*cover*/
-                height: auto /*700px*/;
-                aspect-ratio: 9 / 6;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .header_img .title{
-                text-align: center;
-            }
-            /*타이틀 로고 이미지 필요시 사용
-            .header_img .title .img{
-                width: 100px;
-            }*/
-            .header_img .title h1{
-                font-size: 40px;
-                color: #ffffff;
-                letter-spacing: 0.2em;
-                margin-bottom: 0;
+.header_img{
+    background: url(./img/TitleImg.png) no-repeat center center;
+    background-position: center;
+    background-size: 100% auto; /*cover*/
+    height: auto /*700px*/;
+    aspect-ratio: 9 / 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header_img .title{
+    text-align: center;
+}
+/*타이틀 로고 이미지 필요시 사용
+.header_img .title .img{
+    width: 100px;
+}*/
+.header_img .title h1{
+    font-size: 40px;
+    color: #ffffff;
+    letter-spacing: 0.2em;
+    margin-bottom: 0;
 
-            }
-            .header_img .title p{
-                margin-top: 0;
-                margin-bottom: 30px;
-                color: #ffffff;
-            }
+}
+.header_img .title p{
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #ffffff;
+}

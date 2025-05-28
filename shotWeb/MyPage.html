@@ -57,7 +57,10 @@
                 <td>예시 내용 골 3회 슈팅 5회</td>
             </tr>-->
         </table>
+        <!-- 백엔드에서 불러오기 추가 -->
         <script>
+            
+            document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('hamburger-menu').addEventListener('click', function() {
                 var navMenu = document.getElementById('nav-menu');
                 if (navMenu.style.display === 'block') {
@@ -131,7 +134,42 @@
             /*fetch('/api/gameData', {
 
             });*/
+            
+// 백엔드에서 데이터 불러와 테이블 채우기
+        fetch('/api/mypage')
+            .then(res => res.json())
+            .then(data => {
+                const gameTableBody = document.querySelector('#gameTable tbody');
+                const editTableBody = document.querySelector('#editTable tbody');
 
+                gameTableBody.innerHTML = '';
+                editTableBody.innerHTML = '';
+
+                data.videos.forEach((video, index) => {
+                    // 경기 데이터 테이블
+                    const gameRow = document.createElement('tr');
+                    gameRow.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${video.detections.join(', ') || '없음'}</td>
+                        <td><a href="${video.url}" target="_blank">${video.url}</a></td>
+                    `;
+                    gameTableBody.appendChild(gameRow);
+
+                    // 편집 데이터 테이블
+                    video.editPoints.forEach((editPoint, i) => {
+                        const editRow = document.createElement('tr');
+                        editRow.innerHTML = `
+                            <td>${index + 1}.${i + 1}</td>
+                            <td>${editPoint}</td>
+                        `;
+                        editTableBody.appendChild(editRow);
+                    });
+                });
+            })
+            .catch(err => {
+                console.error("❌ 마이페이지 불러오기 실패:", err);
+            });
+    });
         </script>
     </body>
 </html>

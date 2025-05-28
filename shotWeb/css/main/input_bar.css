@@ -22,7 +22,7 @@
     transition: .5s ease;
 }
 .url_input .input_bar .input_bar_button:hover {
-        transition: .5s ease;
+    transition: .5s ease;
     border: 2px solid black;
     background: transparent;
     color: black;
