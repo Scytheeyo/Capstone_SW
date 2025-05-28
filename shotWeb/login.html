@@ -5,95 +5,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
 <link href="mainImg/logo_round_favicon.png" rel="icon">
-<link href="css/main/nav.css" rel="stylesheet">
-<style>
-    table {
-        width: 280px;
-        height: 250px;
-        margin: auto;
-        font-size: 15px;
-    }
-    input[type="text"], input[type="password"] {
-        width: 250px;
-        height: 32px;
-        font-size: 15px;
-        border: 0;
-        border-radius: 15px;
-        outline: none;
-        padding-left: 10px;
-        background-color: rgb(233,233,233);
-    }
-    .btn {
-        width: 263px;
-        height: 32px;
-        font-size: 15px;
-        border: 0;
-        border-radius: 15px;
-        outline: none;
-        background-color: rgb(255, 140, 0);
-    }
-    .btn:active {
-        background-color: rgb(255, 165, 0);
-    }
-    a {
-        font-size: 12px;
-        color: darkgray;
-        text-decoration: none;
-    }
-    .join {
-        text-align: center;
-    }
-</style>
+<link href="css/LoginAndJoin/login.css" rel="stylesheet">
+<link href="css/main/sidebar.css" rel="stylesheet">
 </head>
 <body>
-<header>
-    <nav>
-        <div id="hamburger-menu">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <ul id="nav-menu">
-            <li><a href="MainPage.html">Home</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="MyPage.html">MyPage</a></li>
-            <li><a href="join.html">SignUp</a></li>
-        </ul>
-    </nav>
-</header>
+    <header>
+        <aside class="side_bar">
+            <section class = "side_bar_icon">
+                <section class="side_bar_hamburger_menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </section>
+            </section>
+            <ul>
+                <li><a href="MainPage.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="MyPage.html">MyPage</a></li>
+                <li><a href="join.html">SignUp</a></li>
+                <li><a href="http://localhost:8080/h2-console/">DB</a></li>
+            </ul>
+        </aside>
+    </header>
 
-<form onsubmit="login(event)">
-    <table>
-        <tr><td><h2>로그인</h2></td></tr>
-        <tr><td><input type="text" placeholder="ID" id="username"></td></tr>
-        <tr><td><input type="password" placeholder="Password" id="password"></td></tr>
-        <tr><td><input type="checkbox"> 로그인 정보 저장</td></tr>
-        <tr><td><input type="submit" value="Sign in" class="btn"></td></tr>
-        <tr><td class="join"><a href="join.html">회원가입</a></td></tr>
-    </table>
-</form>
+    <form onsubmit="login(event)">
+        <section class="login_img">
+            <section class="login_table_box">
+                <table>
+                    <tr><td class="td_left"><h2>로그인</h2></td></tr>
+                    <tr><td class="td_center"><input type="text" placeholder="ID" id="username"></td></tr>
+                    <tr><td class="td_center"><input type="password" placeholder="Password" id="password"></td></tr>
+                    <tr><td class="td_left"><input type="checkbox"> 로그인 정보 저장</td></tr>
+                    <tr><td class="td_center"><input type="submit" value="Sign in" class="btn"></td></tr>
+                    <tr><td class="join"><a href="join.html">회원가입</a></td></tr>
+                </table>
+            </section>
+        </section>
+    </form>
 
-<script>
-function login(event) {
-    event.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    <script>
+    function login(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-    //암호화 시키려고 해당 fetch 수정함
-    fetch('/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-})
-// Spring Security의 기본 로그인 구조와 안맞아서 이걸로 수정함.
- .then(res => {
-    if (res.redirected) {
-        window.location.href = res.url;
-    } else {
-        throw new Error("로그인 실패");
+        //암호화 시키려고 해당 fetch 수정함
+        fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+    })
+    // Spring Security의 기본 로그인 구조와 안맞아서 이걸로 수정함.
+    .then(res => {
+        if (res.redirected) {
+            window.location.href = res.url;
+        } else {
+            throw new Error("로그인 실패");
+        }
+    })
     }
-})
-}
-</script>
-</body>
+    </script>
+    </body>
 </html>
