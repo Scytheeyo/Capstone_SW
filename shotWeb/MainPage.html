@@ -42,7 +42,8 @@
                     </section>
                     <ul>
                         <li><a href="MainPage.html">Home</a></li>
-                        <li><a href="login.html">Login</a></li>
+                        <li><a href="login.html" id="login_btn">Login</a></li>
+                        <li><a href="" id="logout_btn">Logout</a></li>
                         <li><a href="MyPage.html">MyPage</a></li>
                         <li><a href="join.html">SignUp</a></li>
                         <li><a href="http://localhost:8080/h2-console/">DB</a></li>
@@ -202,6 +203,35 @@
                 });
         });
 
+
+        /* 로그인 / 로그아웃 체크 <-- 확인 필요 */
+        async function checkLoginStatus() {
+            try {
+                const response = await fetch('/currentUser');
+                if (response.ok) {
+                    const username = await response.text();
+                    return username.trim() !== 'anonymousUser';
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                return false;
+            }
+        }
+        async function toggleButton() {
+            var loginButton = document.getElementById('login_btn');
+            var logoutButton = document.getElementById('logout_btn');
+
+            if (await checkLoginStatus()) {
+                loginButton.style.display = 'none';
+                logoutButton.style.display = 'block';
+            } else {
+                loginButton.style.display = 'block';
+                logoutButton.style.display = 'none';
+            }
+        }
+        toggleButton();
     </script>
 
 
