@@ -16,6 +16,8 @@
                     <div></div>
                     <div></div>
                     <div></div>
+                    <span class="logo_text_clip">clip</span>
+                    <span class="logo_text_shot">Shot</span>
                 </section>
             </section>
             <ul>
@@ -49,21 +51,22 @@
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        //암호화 시키려고 해당 fetch 수정함
-        fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-    })
-    // Spring Security의 기본 로그인 구조와 안맞아서 이걸로 수정함.
-    .then(res => {
-        if (res.redirected) {
-            window.location.href = res.url;
-        } else {
-            throw new Error("로그인 실패");
-        }
-    })
-    }
+        
+        fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+            credentials: 'include'
+        })
+        .then(res => {
+            if (res.ok) {
+                window.location.href = 'MainPage.html';
+            } else {
+                throw new Error("로그인 실패");
+            }
+        })
+        .catch(err => alert(err.message));
+    }   
     </script>
     </body>
 </html>

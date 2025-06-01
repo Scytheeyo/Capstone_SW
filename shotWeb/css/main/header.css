@@ -11,10 +11,6 @@
 .header_img .title{
     text-align: center;
 }
-/*타이틀 로고 이미지 필요시 사용
-.header_img .title .img{
-    width: 100px;
-}*/
 .header_img .title h1{
     font-size: 40px;
     color: #ffffff;

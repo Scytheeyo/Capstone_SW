@@ -38,12 +38,14 @@
                             <div></div>
                             <div></div>
                             <div></div>
+                            <span class="logo_text_clip">clip</span>
+                            <span class="logo_text_shot">Shot</span>
                         </section>
                     </section>
                     <ul>
                         <li><a href="MainPage.html">Home</a></li>
                         <li><a href="login.html" id="login_btn">Login</a></li>
-                        <li><a href="" id="logout_btn">Logout</a></li>
+                        <li><a href="#" id="logout_btn">Logout</a></li>
                         <li><a href="MyPage.html">MyPage</a></li>
                         <li><a href="join.html">SignUp</a></li>
                         <li><a href="http://localhost:8080/h2-console/">DB</a></li>
@@ -74,15 +76,6 @@
                     <p>대상 영상의 경기 내용을 <br>간단하게 정리하여 <br>설명합니다.</p>
                 </div>
             </section>
-                <!-- url 삽입 바 -->
-                <!-- 확인 차 남겨둠, 향후 주석 삭제함
-                <div style="text-align: center; margin-top: 40px;">
-                    <input type="text" id="url-input" placeholder="편집할 URL을 입력하세요" style="width: 60%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px;">
-                    <button onclick="submitUrl()" style="padding: 10px 20px; margin-left: 10px; background-color: rgb(65, 144, 255); color: white; border: none; border-radius: 10px; font-size: 16px; cursor: pointer;">
-                        편집
-                    </button>
-                </div>
-                -->
             <section class="url_input">
                 <div class="input_bar">
                     <input type="text" id="url-input" placeholder="편집할 URL을 입력하세요" style="width: 60%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px;">
@@ -99,18 +92,18 @@
             <section class="community_list">
                 <div class="container">
                     <div class="title">
-                        <h1>COMMUNITY</h1>
-                        <ul>
-                            <li><a href="">글 목록</a></li>
-                            <li><a href="">글 목록2</a></li>
-                            <li><a href="">글 목록3</a></li>
-                            <li><a href="">글 목록4</a></li>
-                        </ul>
+                        <h1>RECOMMENDED VIDEO</h1>
                     </div>
                     <div class="item_list">
+                        <!--
+                        https://www.youtube.com/watch?v=OFbyNU6UQQs&t=5485s
+                        https://www.youtube.com/shorts/7dnqx_QEwP0
+                        https://www.youtube.com/watch?v=ERXqKX8o9Zc
+                        https://www.youtube.com/watch?v=OKjV2SQfKrw
+                        -->
                     <div class="card"> <!-- 커뮤니티 글 카드 -->
                         <div class="img">
-                            <img src="./mainImg/example.jpg" alt="">
+                            <img src="https://img.youtube.com/vi/OFbyNU6UQQs/hqdefault.jpg" alt="">
                         </div>
                         <div class="text">
                             <h2>예시</h2>
@@ -122,6 +115,34 @@
             </section>
 
         <script>
+        // 수정 및 추가. URL을 백엔드에 전송
+        function submitUrl() {
+            const url = document.getElementById('url-input').value.trim();
+
+            // 입력값 없을 시 경고창 띄우기
+            if (!url) {
+                alert("URL을 입력해주세요.");
+                return;
+            }
+
+            // 추가. Flask 백엔드에 URL을 POST 방식으로 전송
+            fetch('/api/submit-url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url }),
+                credentials: 'include'
+            })
+
+            .then(res => {
+                // 수정. res.ok 여부만 확인하고 후처리 없었어서 추가함
+                if (res.ok) {
+                    alert("URL이 성공적으로 전송되었습니다.");
+                } else {
+                    throw new Error("URL 전송 실패");
+                }
+            })
+            .catch(err => alert(err.message));  // 오류 알림
+        }
 
         document.getElementById('hamburger-menu').addEventListener('click', function() {
             var navMenu = document.getElementById('nav-menu');
@@ -153,35 +174,6 @@
                 navMenu.style.display = 'none'; // 작아지면 다시 숨기기
             }
         });
-
-        // ✅ 수정 및 추가. URL을 백엔드에 전송하는 submitUrl 함수 정의
-        function submitUrl() {
-            const url = document.getElementById('url-input').value.trim();
-
-            // 입력값 없을 시 경고창 띄우기
-            if (!url) {
-                alert("URL을 입력해주세요.");
-                return;
-            }
-
-            // 추가. Flask 백엔드에 URL을 POST 방식으로 전송
-            fetch('/api/submit-url', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url }),
-        credentials: 'include'  // ✅ 인증 쿠키 포함!
-    })
-
-            .then(res => {
-                // 수정. res.ok 여부만 확인하고 후처리 없었어서 추가함
-                if (res.ok) {
-                    alert("URL이 성공적으로 전송되었습니다.");
-                } else {
-                    throw new Error("URL 전송 실패");
-                }
-            })
-            .catch(err => alert(err.message));  // 오류 알림
-        }
         
         document.getElementById('h2-link').addEventListener('click', function (e) {
             e.preventDefault(); // 기본 이동 막기
@@ -203,25 +195,48 @@
                 });
         });
 
+        //logout 함수
+        function logout() {
+            fetch('/logout', {
+                method: 'POST',
+                crendentials: 'include'
+            })
+            .then(res => {
+                if(res.ok) {
+                    alert("로그아웃 되었습니다");
+                    window.location.href = "MainPage.html";
+                } else {
+                    throw new Error("로그아웃 실패");
+                }
+            })
+            .catch(err => {
+                alert("에러 : " + err.message);
+            })
+        }
 
-        /* 로그인 / 로그아웃 체크 <-- 확인 필요 */
+
+        /* 로그인 / 로그아웃 체크 */
         async function checkLoginStatus() {
             try {
-                const response = await fetch('/currentUser');
-                if (response.ok) {
-                    const username = await response.text();
-                    return username.trim() !== 'anonymousUser';
-                } else {
-                    return false;
-                }
+                const response = await fetch('/api/currentUser', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                const username = await response.text();
+                return username !== 'anonymousUser';
             } catch (error) {
-                console.error('Error:', error);
+                console.error('로그인 상태 확인 실패:', error);
                 return false;
             }
         }
         async function toggleButton() {
-            var loginButton = document.getElementById('login_btn');
-            var logoutButton = document.getElementById('logout_btn');
+            const loginButton = document.getElementById('login_btn');
+            const logoutButton = document.getElementById('logout_btn');
+
+            if (!loginButton || !logoutButton) {
+                console.warn('버튼 요소가 존재하지 않음');
+                return;
+            }
 
             if (await checkLoginStatus()) {
                 loginButton.style.display = 'none';
@@ -231,8 +246,45 @@
                 logoutButton.style.display = 'none';
             }
         }
-        toggleButton();
-    </script>
+
+        // 로그아웃 처리
+        function setupLogoutButton() {
+            const logoutButton = document.getElementById('logout_btn');
+            if (!logoutButton) {
+                console.warn('로그아웃 버튼이 존재하지 않음');
+                return;
+            }
+
+            logoutButton.addEventListener('click', async function (e) {
+                e.preventDefault(); // 링크 동작 방지
+
+                try {
+                    const response = await fetch('/api/logout', {
+                        method: 'POST',
+                        credentials: 'include'
+                    });
+
+                    if (response.ok) {
+                        console.log('로그아웃 성공');
+                        alert('로그아웃 되었습니다.');
+                        toggleButton(); // 버튼 상태 갱신
+                        window.location.href = '/login.html'; // 로그인 페이지로 이동
+                    } else {
+                        console.error('로그아웃 실패:', await response.text());
+                    }
+                } catch (error) {
+                    console.error('로그아웃 요청 중 오류 발생:', error);
+                }
+            });
+        }
+
+        // 초기 실행
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleButton();
+            setupLogoutButton();
+        });
+
+        </script>
 
 
 
