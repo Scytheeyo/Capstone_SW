@@ -24,22 +24,29 @@
     gap: 20px;
 }
 .community_list .container .item_list .card{
-    border: 1px solid #eee;
+    position: relative;
+    border: 1px solid #eeeeee90;
     border-radius: 5px;
     height: 350px;
-    width: 250px;
+    width: 225px;
     padding: 5px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .community_list .container .item_list .card img{
-    height: 200px;
-    width: 250px;
+    height: 175px;
+    width: 225px;
+}
+.community_list .container .item_list .card .text{
+    font-size: 10px;
+    opacity: 1;
 }
 .community_list .container .item_list .card .text p{
-    font-size: 14px;
+    font-size: 9px;
     opacity: .8;
 }
 .community_list .container .item_list .card .text button{
+    position: absolute;
     background: black;
     color:white;
     border:2px solid white;
@@ -47,6 +54,8 @@
     padding: 5px 10px;
     font-size: 10px;
     transition: .5s ease;
+    bottom: 15px;
+    left: 15px;
 }
 .community_list .container .item_list .card .text button:hover{
     transition: .5s ease;
