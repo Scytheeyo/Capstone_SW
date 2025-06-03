@@ -67,3 +67,14 @@
         display: block;
     }
 }
+
+.hr_bar {
+  border: 0;
+  height: 0;
+  border-top: 1px solid #8c8c8c;
+}
+.hr_bar_2 {
+  background-color: #fff;
+  padding: 0;
+  margin: 80px;
+}

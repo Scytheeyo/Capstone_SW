@@ -52,7 +52,7 @@
                     </ul>
                 </aside>
             <!-- 헤더 이미지와 로고 -->
-            <section class="header_img">
+            <section class="header_img" onclick="window.open('MainPage.html');" style="cursor: pointer;">
                 <div class="title">
                     <h1>CLIP SHOT</h1>
                     <p>클립샷, 하이라이트 순간을 편집합니다</p>
@@ -73,9 +73,14 @@
                 <div class="card">
                     <img src="./mainImg/step3.png" alt="">
                     <h1>경기 분석</h1>
-                    <p>대상 영상의 경기 내용을 <br>간단하게 정리하여 <br>설명합니다.</p>
+                    <p>대상 영상의 경기 내용을 <br>간단하게 정리합니다.</p>
                 </div>
             </section>
+
+            <div class="spinner_container" id="spinner_loading" style="display: none;">
+                <div id="spinner"></div>
+            </div>
+
             <section class="url_input">
                 <div class="input_bar">
                     <input type="text" id="url-input" placeholder="편집할 URL을 입력하세요" style="width: 60%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px;">
@@ -83,24 +88,21 @@
                         편집
                     </button>
                 </div>
-                <!-- 분석 결과 텍스트 표시 영역 -->
-                <div id="result-box" style="text-align:center; margin-top:20px; font-weight:bold; font-size:18px;"></div>
+                <!-- 가이드 텍스트 표시 영역 -->
+                <div id="result-box" style="text-align:center; margin-top:15px; color: grey; font-weight:bold; font-size:13px;">
+                    <p>탑뷰에서 촬영된 축구 경기 영상의 URL을 입력하세요! (쇼츠 영상 불가)</p>
+                </div>
             </section>
+
         </header>
 
-        <!-- 커뮤니티 -->
+        <!-- 추천 영상 리스트 -->
             <section class="community_list">
                 <div class="container">
                     <div class="title">
                         <h1>SAMPLE VIDEO</h1>
                     </div>
                     <div class="item_list">
-                        <!--
-                        https://www.youtube.com/watch?v=OFbyNU6UQQs&t=5485s
-                        https://www.youtube.com/watch?v=yEDQC9zG_ds
-                        https://www.youtube.com/watch?v=ERXqKX8o9Zc
-                        https://www.youtube.com/watch?v=OKjV2SQfKrw
-                        -->
                         <div class="card" data-url="https://www.youtube.com/watch?v=OFbyNU6UQQs&t=5485s" onclick="window.open('https://www.youtube.com/watch?v=OFbyNU6UQQs&t=5485s');">
                             <div class="img">
                                 <img src="https://img.youtube.com/vi/OFbyNU6UQQs/hqdefault.jpg" alt="">
@@ -108,7 +110,6 @@
                             <div class="text">
                                 <h2>Full Match : Portugal v Spain</h2>
                                 <p>FIFA</p>
-                                <!--<button class="copy_btn">링크복사</button>-->
                             </div>   
                         </div>
 
@@ -119,7 +120,6 @@
                             <div class="text">
                                 <h2>Full Match | Quarter Finals | Australia vs Korea Republic</h2>
                                 <p>AFC Asian Cup</p>
-                                <!--<button class="copy_btn">링크복사</button>-->
                             </div>
                         </div>
 
@@ -130,7 +130,6 @@
                             <div class="text">
                                 <h2>Korea Republic v Germany | Match Highlights</h2>
                                 <p>FIFA</p>
-                                <!--<button class="copy_btn">링크복사</button>-->
                             </div>
                         </div>
 
@@ -141,7 +140,6 @@
                             <div class="text">
                                 <h2>Full Match | Group B | Japan vs Korea Republic</h2>
                                 <p>AFC Asian Cup</p>
-                                <!--<button class="copy_btn">링크복사</button>-->
                             </div>
                         </div>
 
@@ -150,6 +148,14 @@
             </section>
 
         <script>
+        function showSpinner() {
+            document.getElementById("spinner_loading").style.display = "block";
+        }
+
+        function hideSpinner() {
+            document.getElementById("spinner_loading").style.display = "none";
+        }
+
         // 수정 및 추가. URL을 백엔드에 전송
         function submitUrl() {
             const url = document.getElementById('url-input').value.trim();
@@ -159,7 +165,12 @@
                 alert("URL을 입력해주세요.");
                 return;
             }
-
+            // 유튜브 쇼츠 URL이면 전송 안함
+            if (url.includes("youtube.com/shorts/")) {
+                alert("유튜브 쇼츠는 입력할 수 없습니다.");
+                return;
+            }
+            showSpinner(); // 스피너 애니메이션 추가
             // 추가. Flask 백엔드에 URL을 POST 방식으로 전송
             fetch('/api/submit-url', {
                 method: 'POST',
@@ -169,6 +180,7 @@
             })
 
             .then(res => {
+                hideSpinner(); // 스피너 숨기기
                 // 수정. res.ok 여부만 확인하고 후처리 없었어서 추가함
                 if (res.ok) {
                     alert("URL이 성공적으로 전송되었습니다.");
@@ -176,7 +188,10 @@
                     throw new Error("URL 전송 실패");
                 }
             })
-            .catch(err => alert(err.message));  // 오류 알림
+            .catch(err => {
+                hideSpinner(); // 스피너 숨기기
+                alert(err.message)
+            });  // 오류 알림
         }
 
         document.getElementById('hamburger-menu').addEventListener('click', function() {
@@ -318,36 +333,6 @@
             toggleButton();
             setupLogoutButton();
         });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".card").forEach(card => {
-                card.addEventListener("click", function(event) {
-                    if (event.target.closest(".copy_btn")) {
-                        return;
-                    }
-                    const url = card.dataset.url;
-                    if (url) {
-                        window.open(url, "_blank");
-                    }
-                });
-            });
-
-            //링크 복사 버튼 함수
-            document.querySelectorAll(".copy_btn").forEach(button => {
-                button.addEventListener("click", function(event) {
-                    event.stopPropagation();
-                    const card = button.closest(".card");
-                    const url = card.getAttribute("data-url");
-                    navigator.clipboard.writeText(url).then(() => {
-                        alert("링크가 복사되었습니다.");
-                    }).catch(err => {
-                        console.error("링크 복사 실패 : ", err);
-                        alert("링크 복사 실패");
-                    });
-                });
-            });
-        });
-
 
         </script>
 

@@ -32,6 +32,10 @@
     padding: 5px;
     margin-bottom: 10px;
     cursor: pointer;
+    background-color: white;
+}
+.community_list .container .item_list .card:hover{
+    background-color: black;
 }
 .community_list .container .item_list .card img{
     height: 175px;
@@ -40,26 +44,17 @@
 .community_list .container .item_list .card .text{
     font-size: 10px;
     opacity: 1;
+    color: black;
+}
+.community_list .container .item_list .card:hover .text{
+    color: white;
+    transition: .5 ease;
 }
 .community_list .container .item_list .card .text p{
     font-size: 9px;
     opacity: .8;
-}
-.community_list .container .item_list .card .text button{
-    position: absolute;
-    background: black;
-    color:white;
-    border:2px solid white;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 10px;
-    transition: .5s ease;
-    bottom: 15px;
-    left: 15px;
-}
-.community_list .container .item_list .card .text button:hover{
-    transition: .5s ease;
-    border: 2px solid black;
-    background: transparent;
     color: black;
+}
+.community_list .container .item_list .card:hover .text p{
+    color: white;
 }
